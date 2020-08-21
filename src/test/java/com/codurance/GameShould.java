@@ -10,6 +10,6 @@ public class GameShould {
 
   @Test
   void wait_for_x_to_play_first() {
-    assertThat(game.state()).isEqualTo(new GameState(Status.GAME_ON, Player.X));
+    assertThat(game.state()).isEqualTo(new GameState(Status.START, Player.X));
   }
 }
