@@ -1,9 +1,10 @@
 package com.codurance;
 
-import org.assertj.core.api.AbstractBigDecimalAssert;
+import static com.codurance.Player.X;
+import static com.codurance.Status.GAME_ON;
 
 public class Game {
   public GameState state() {
-    throw new UnsupportedOperationException();
+    return new GameState(GAME_ON, X);
   }
 }
