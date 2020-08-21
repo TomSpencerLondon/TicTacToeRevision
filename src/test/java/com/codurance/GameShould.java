@@ -2,6 +2,8 @@ package com.codurance;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static com.codurance.Player.O;
 import static com.codurance.Player.X;
 import static com.codurance.Status.SQUARE_ALREADY_PLAYED;
@@ -34,10 +36,13 @@ public class GameShould {
 
   @Test
   void not_permit_square_to_be_played_twice() {
-    Game game = new Game();
-    game = game.play(Square.TOP_LEFT);
-    game = game.play(Square.TOP_MIDDLE);
-    game = game.play(Square.TOP_LEFT);
+    Game game = play(Square.TOP_LEFT, Square.TOP_MIDDLE, Square.TOP_LEFT);
     assertThat(game.state()).isEqualTo(new GameState(SQUARE_ALREADY_PLAYED, X));
   }
+
+  private Game play(Square... squares) {
+    return Arrays.stream(squares)
+            .reduce(new Game(), Game::play, (a, b) -> null);
+  }
 }
+
