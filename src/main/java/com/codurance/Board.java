@@ -34,7 +34,10 @@ public class Board {
   }
 
   public boolean hasWinningCombination() {
-    Stream<Square> winningCombination = of(TOP_LEFT, CENTRE_LEFT, BOTTOM_LEFT);
-    return winningCombination.allMatch(takenSquares::contains);
+    Stream<Stream<Square>> winningCombinations = of(
+            of(TOP_LEFT, CENTRE_LEFT, BOTTOM_LEFT),
+            of(TOP_MIDDLE, CENTRE_MIDDLE, BOTTOM_MIDDLE));
+    return winningCombinations.anyMatch(winningCombination ->
+            winningCombination.allMatch(takenSquares::contains));
   }
 }
