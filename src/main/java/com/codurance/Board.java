@@ -36,7 +36,8 @@ public class Board {
   public boolean hasWinningCombination() {
     Stream<Stream<Square>> winningCombinations = of(
             of(TOP_LEFT, CENTRE_LEFT, BOTTOM_LEFT),
-            of(TOP_MIDDLE, CENTRE_MIDDLE, BOTTOM_MIDDLE));
+            of(TOP_MIDDLE, CENTRE_MIDDLE, BOTTOM_MIDDLE),
+            of(TOP_RIGHT, CENTRE_RIGHT, BOTTOM_RIGHT));
     return winningCombinations.anyMatch(winningCombination ->
             winningCombination.allMatch(takenSquares::contains));
   }
