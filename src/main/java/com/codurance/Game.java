@@ -23,12 +23,14 @@ public class Game {
 
     if (board.isFull())
       this.status = DRAW;
+    else if (board.hasWinningCombination())
+      this.status = X_HAS_WON;
     else
       this.status = status;
   }
 
   public GameState state() {
-    if (status == DRAW)
+    if (status == DRAW || status == X_HAS_WON)
       return new GameState(status);
     else
       return new GameState(status, nextPlayer());
