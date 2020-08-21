@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import static com.codurance.Square.*;
+import static java.util.stream.Stream.of;
 
 public class Board {
   private Set<Square> takenSquares;
@@ -33,7 +34,7 @@ public class Board {
   }
 
   public boolean hasWinningCombination() {
-    Stream<Square> winningCombination = Stream.of(TOP_LEFT, CENTRE_LEFT, BOTTOM_LEFT);
-    return winningCombination.allMatch(square -> takenSquares.contains(square));
+    Stream<Square> winningCombination = of(TOP_LEFT, CENTRE_LEFT, BOTTOM_LEFT);
+    return winningCombination.allMatch(takenSquares::contains);
   }
 }
