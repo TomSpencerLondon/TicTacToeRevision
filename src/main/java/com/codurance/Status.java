@@ -1,6 +1,7 @@
 package com.codurance;
 
 public enum Status {
-  START,
-  SQUARE_ALREADY_PLAYED;
+  PLAY,
+  SQUARE_ALREADY_PLAYED,
+  DRAW;
 }

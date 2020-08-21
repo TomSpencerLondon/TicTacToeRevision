@@ -3,8 +3,7 @@ package com.codurance;
 
 import static com.codurance.Player.O;
 import static com.codurance.Player.X;
-import static com.codurance.Status.SQUARE_ALREADY_PLAYED;
-import static com.codurance.Status.START;
+import static com.codurance.Status.*;
 
 public class Game {
 
@@ -13,26 +12,33 @@ public class Game {
   private final Board board;
 
   public Game() {
-    status = START;
+    status = PLAY;
     lastPlayer = null;
     board = new Board();
   }
 
   public Game(Status status, Player lastPlayer, Board board) {
-    this.status = status;
     this.lastPlayer = lastPlayer;
     this.board = board;
+
+    if (board.isFull())
+      this.status = DRAW;
+    else
+      this.status = status;
   }
 
   public GameState state() {
-    return new GameState(status, nextPlayer());
+    if (status == DRAW)
+      return new GameState(status);
+    else
+      return new GameState(status, nextPlayer());
   }
 
   public Game play(Square square) {
     if (board.alreadyTaken(square))
       return new Game(SQUARE_ALREADY_PLAYED, lastPlayer, board);
     else
-      return new Game(START, nextPlayer(), board.take(square));
+      return new Game(PLAY, nextPlayer(), board.take(square));
   }
 
   private Player nextPlayer() {
