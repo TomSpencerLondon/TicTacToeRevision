@@ -11,7 +11,7 @@ public class Board {
     this.takenSquares = Collections.emptySet();
   }
 
-  public Board(Set<Square> takenSquare) {
+  private Board(Set<Square> takenSquare) {
     this.takenSquares = takenSquare;
   }
 
