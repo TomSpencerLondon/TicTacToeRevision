@@ -22,4 +22,12 @@ public class GameShould {
     game = game.play();
     assertThat(game.state()).isEqualTo(new GameState(START, O));
   }
+
+  @Test
+  void alternate_the_players() {
+    Game game = new Game();
+    game = game.play();
+    game = game.play();
+    assertThat(game.state()).isEqualTo(new GameState(START, X));
+  }
 }
