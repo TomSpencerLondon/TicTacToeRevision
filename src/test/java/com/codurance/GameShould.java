@@ -89,6 +89,18 @@ public class GameShould {
     assertThat(game.state()).isEqualTo(new GameState(O_HAS_WON));
   }
 
+  @Test
+  void not_permit_further_play_after_game_is_won() {
+    Game game = play(
+            TOP_LEFT,
+            TOP_MIDDLE,
+            CENTRE_LEFT,
+            CENTRE_MIDDLE,
+            BOTTOM_LEFT,
+            BOTTOM_MIDDLE);
+    assertThat(game.state()).isEqualTo(new GameState(X_HAS_WON));
+  }
+
   private Game play(Square... squares) {
     return Arrays.stream(squares)
             .reduce(new Game(), Game::play, (a, b) -> null);

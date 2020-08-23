@@ -37,10 +37,16 @@ public class Game {
   }
 
   public Game play(Square square) {
+    if (gameIsOver())
+      return this;
     if (board.alreadyTaken(square))
       return new Game(SQUARE_ALREADY_PLAYED, lastPlayer, board);
     else
       return new Game(PLAY, nextPlayer(), board.take(square, nextPlayer()));
+  }
+
+  private boolean gameIsOver() {
+    return status == DRAW || status == X_HAS_WON || status == O_HAS_WON;
   }
 
   private Player nextPlayer() {
