@@ -1,31 +1,34 @@
 package com.codurance;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.codurance.Square.*;
+import static java.util.stream.Collectors.toSet;
 import static java.util.stream.Stream.of;
 
 public class Board {
-  private Set<Square> takenSquares;
+  private Map<Square, Player> takenSquares;
 
   public Board(){
-    this.takenSquares = Collections.emptySet();
+
+    this.takenSquares = Collections.emptyMap();
   }
 
-  private Board(Set<Square> takenSquares) {
+  private Board(Map<Square, Player> takenSquares) {
+
     this.takenSquares = takenSquares;
   }
 
   public boolean alreadyTaken(Square square) {
-    return takenSquares.contains(square);
+
+    return takenSquares.keySet().contains(square);
   }
 
-  public Board take(Square square) {
-    Set<Square> newBoard = new HashSet<>(takenSquares);
-    newBoard.add(square);
+  public Board take(Square square, Player player) {
+    Map<Square, Player> newBoard = new HashMap<>(takenSquares);
+    newBoard.put(square, player);
     return new Board(newBoard);
   }
 
@@ -33,7 +36,7 @@ public class Board {
     return takenSquares.size() == 9;
   }
 
-  public boolean hasWinningCombination() {
+  public boolean hasWinningCombination(Player player) {
     Stream<Stream<Square>> winningCombinations = of(
             of(TOP_LEFT, CENTRE_LEFT, BOTTOM_LEFT),
             of(TOP_MIDDLE, CENTRE_MIDDLE, BOTTOM_MIDDLE),
@@ -45,6 +48,13 @@ public class Board {
             of(TOP_RIGHT,CENTRE_MIDDLE,BOTTOM_LEFT)
            );
     return winningCombinations.anyMatch(winningCombination ->
-            winningCombination.allMatch(takenSquares::contains));
+            winningCombination.allMatch(squaresTakenBy(player)::contains));
+  }
+
+  private Set<Square> squaresTakenBy(Player player) {
+    return takenSquares.entrySet().stream()
+            .filter(entry -> entry.getValue() == player)
+            .map(entry -> entry.getKey())
+            .collect(toSet());
   }
 }

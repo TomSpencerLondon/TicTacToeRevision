@@ -72,9 +72,21 @@ public class GameShould {
           "TOP_LEFT,TOP_MIDDLE,CENTRE_MIDDLE,BOTTOM_MIDDLE,BOTTOM_RIGHT",
           "TOP_RIGHT,TOP_MIDDLE,CENTRE_MIDDLE,BOTTOM_RIGHT,BOTTOM_LEFT"
   })
-  void recognise_win(Square s1, Square s2, Square s3, Square s4, Square s5) {
+  void recognise_win_for_X(Square s1, Square s2, Square s3, Square s4, Square s5) {
     Game game = play(s1, s2, s3, s4, s5);
     assertThat(game.state()).isEqualTo(new GameState(X_HAS_WON));
+  }
+
+  @Test
+  void recognise_win_for_O() {
+    Game game = play(
+            TOP_RIGHT,
+            TOP_LEFT,
+            TOP_MIDDLE,
+            CENTRE_LEFT,
+            CENTRE_MIDDLE,
+            BOTTOM_LEFT);
+    assertThat(game.state()).isEqualTo(new GameState(O_HAS_WON));
   }
 
   private Game play(Square... squares) {
