@@ -21,10 +21,10 @@ public class Game {
     this.lastPlayer = lastPlayer;
     this.board = board;
 
-    if (board.isFull())
-      this.status = DRAW;
-    else if (board.hasWinningCombination(lastPlayer))
+    if (board.hasWinningCombination(lastPlayer))
       this.status = lastPlayer == X ? X_HAS_WON : O_HAS_WON;
+    else if (board.isFull())
+      this.status = DRAW;
     else
       this.status = status;
   }
@@ -48,6 +48,8 @@ public class Game {
   private boolean gameIsOver() {
     return status == DRAW || status == X_HAS_WON || status == O_HAS_WON;
   }
+
+
 
   private Player nextPlayer() {
     if (lastPlayer == null)

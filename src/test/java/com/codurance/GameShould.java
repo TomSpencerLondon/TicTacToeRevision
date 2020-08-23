@@ -101,6 +101,24 @@ public class GameShould {
     assertThat(game.state()).isEqualTo(new GameState(X_HAS_WON));
   }
 
+  // X O X
+  // O X O
+  // O X X
+  @Test
+  void not_declare_win_or_draw_by_mistake() {
+    Game game = play(
+            TOP_LEFT,
+            TOP_MIDDLE,
+            TOP_RIGHT,
+            CENTRE_LEFT,
+            CENTRE_MIDDLE,
+            CENTRE_RIGHT,
+            BOTTOM_MIDDLE,
+            BOTTOM_LEFT,
+            BOTTOM_RIGHT);
+    assertThat(game.state()).isEqualTo(new GameState(X_HAS_WON));
+  }
+
   private Game play(Square... squares) {
     return Arrays.stream(squares)
             .reduce(new Game(), Game::play, (a, b) -> null);
